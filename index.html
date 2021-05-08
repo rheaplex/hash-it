@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Hash it!</title>
+
+</head>
+<body>
+  <input type="text" id="input"></input>
+  <!-- &nbsp; <button type="button" id="go">Hash it!</button>-->
+  <br/>
+  <div id="output"></div>
+
+  <script src="./js/bip39.browser.js">
+    /*
+      npx browserify -r bip39 -s bip39 \
+      --exclude=./wordlists/japanese.json \
+      --exclude=./wordlists/spanish.json \
+      --exclude=./wordlists/italian.json \
+      --exclude=./wordlists/french.json \
+      --exclude=./wordlists/korean.json \
+      --exclude=./wordlists/czech.json \
+      --exclude=./wordlists/portuguese.json \
+      --exclude=./wordlists/chinese_traditional.json \
+      --exclude=./wordlists/chinese_simplified.json \
+      > bip39.browser.js
+    */
+  </script>
+  <script src="./js/hash-it.js"></script>
+</body>
+</html>
