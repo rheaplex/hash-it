@@ -37,7 +37,8 @@
 */
 
 const input = document.getElementById('input');
-//const hashIt = document.getElementById('go');
+const hashIt = document.getElementById('go');
+const copyToClipboard = document.getElementById('copy');
 const output = document.getElementById('output');
 
 
@@ -89,7 +90,7 @@ function utf8ToBip39Words(text) {
 
 function bip39WordsToUtf8(mnemonic) {
     const wordlist = bip39.wordlists['EN'];
-    const words = mnemonic.split(' ')
+    const words = mnemonic.split(' ');
     const bits = words.map(word => {
         const index = wordlist.indexOf(word);
         return index.toString(2).padStart(11, '0');
@@ -123,5 +124,23 @@ async function processInput(event) {
         + '<dt>Sha256 BIP39 (With Checksum):</dt><dd>' + sha256Bip39 + '</dd></dl>';
 }
 
+async function copyResultToClipboard() {
+    const text = input.value;
+    const utf8Bip39Words = utf8ToBip39Words(text);
+    const sha256 = await utf8ToSha256(text);
+    const sha256Hex = Sha256ToHex(sha256);
+    const sha256Bip39 = Sha256ToBip39(sha256Hex);
+    navigator.clipboard.writeText(`# ${text}
+UTF-8 Hex:
+     ${utf8ToHex(text)}
+UTF-8 BIP39 Words:
+     ${utf8Bip39Words}
+Sha256:
+     ${sha256Hex}
+Sha256 BIP39 (With Checksum):
+     ${sha256Bip39}`);
+}
+
 input.addEventListener('change', processInput);
-//hashIt.addEventListener('click', processInput);
+hashIt.addEventListener('click', processInput);
+copyToClipboard.addEventListener('click', copyResultToClipboard);
